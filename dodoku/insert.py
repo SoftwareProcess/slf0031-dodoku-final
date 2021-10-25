@@ -28,10 +28,10 @@ def _insert(parms):
     integrity = parms['integrity']
     gridText = str.lstrip("[").rstrip("]")
     grid = list(gridText.split(","))
-    isGridOk = _error_checking(grid)
-    if (isGridOk == False):
-        result = {'status': 'error 104' }
-        return result
+    #isGridOk = _error_checking(grid)
+    #if (isGridOk == False):
+    #    result = {'status': 'error 104' }
+    #    return result
     
     cellPattern = r"^[rR](\d\d?)[cC](\d\d?)$"
     cellData = re.fullmatch(cellPattern, cellText)
