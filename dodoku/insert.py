@@ -1,18 +1,11 @@
-"""     
+"""
 Created on October 20,2021
  @author: Sterling Fuchsberger
  Modified: October 20,2021
- Comment: Added code to build board from the passed grid parameter.
-          Parsed cell contents into cellData
-          Identified need to translate board back to grid 
- Modified: October 21,2021
- Comment: Finshed board to grid function
-          Added code to error check the grid at beginning 
-          
-          
+ Comment: Added level parameter scanning and associated table data and hash data
+ Modified: October 20,2021
 """
 #used for parsing
-
 import re
 def _insert(parms):
     #if (parms['grid'] && parms['integrity'] && parms['status'])) :
@@ -26,22 +19,25 @@ def _insert(parms):
     cellText = parms['cell']
     value = parms.get('value','0')
     integrity = parms['integrity']
-    gridText = str.lstrip("[").rstrip("]")
+    print(gridText)
+    gridText = gridText[1:-1]
+    print(gridText)
     grid = list(gridText.split(","))
-    #isGridOk = _error_checking(grid)
-    #if (isGridOk == False):
-    #    result = {'status': 'error 104' }
-    #    return result
+    print(grid)
+    isGridOk = _error_checking(grid)
+    if (isGridOk != True):
+        result = {'status': 'error 104' }
+        return result
     
     cellPattern = r"^[rR](\d\d?)[cC](\d\d?)$"
     cellData = re.fullmatch(cellPattern, cellText)
     
     if cellData is None:
-        result = {'status': 'error:103'}
+        result = {'status': 'error:103' }
         return result
     if (len(grid) != 153) :
-        lengthg = grid.len()
-        result = {'status': 'error: 101','length': lengthg}
+        lengthg = len(grid)
+        result = {'status': 'error: 101','length': lengthg }
         return result
     
     cellRow = int(cellData[1])
@@ -66,24 +62,27 @@ def _create_board(grid):
     x = range(6)
     y = range(3)
     z = range(9)
-    
+    print(len(grid))
     for n in x:
         row=[]
         for m in z:
-            row = row + grid[loc]
+            row.append(grid[loc])
             loc = loc + 1
         row += [None]*6
         board.append(row)
         
     for n in y:
+        row=[]
         for m in w:
-            board.append(grid[loc])
+            row.append(grid[loc])
             loc = loc + 1
+        board.append(row)
     for n in x:
-        for m in z:
-            row = grid[loc]
-            loc = loc + 1
+        row=[]
         row += [None]*6
+        for m in z:
+            row.append(grid[loc])
+            loc = loc + 1
         board.append(row)
     return board
 
@@ -107,8 +106,7 @@ def _create_grid(board):
 def _error_checking(grid):
     try:
         assert len(grid) == 153
-        for m in grid:
-            assert abs(m) <= 9
+        
             
         return True
     except:
