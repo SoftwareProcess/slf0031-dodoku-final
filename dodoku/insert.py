@@ -46,7 +46,7 @@ def _insert(parms):
     cellRow = int(cellData[1])
     cellColumn = int(cellData[2])
     
-    board = _create_board(gridText)
+    board = _create_board(grid)
     board[cellRow -1][cellColumn-1] = value
     
     grid = _create_grid(board)
