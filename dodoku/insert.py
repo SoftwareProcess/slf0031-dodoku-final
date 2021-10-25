@@ -105,7 +105,6 @@ def _error_checking(parms):
         grid = parms['grid']
         assert len(grid) == 153
         for m in grid:
-            assert isinstance(m,int)
             assert abs(m) <= 9
             
         return True
