@@ -1,3 +1,11 @@
+"""
+Created on September 28,2021
+ @author: Sterling Fuchsberger
+ Modified: September 29,2021
+ Comment: Added level parameter scanning and associated table data and hash data
+ Modified: October 20,2021
+ 
+"""
 def _create(parms):
     from hashlib import sha256
     if (parms['level'] =='1'):
