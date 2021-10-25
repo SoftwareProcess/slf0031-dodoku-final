@@ -40,7 +40,8 @@ def _insert(parms):
         result = {'status': 'error:103'}
         return result
     if (len(grid) != 153) :
-        result = {'status': 'error: 101'}
+        lengthg = grid.len()
+        result = {'status': 'error: 101','length': lengthg}
         return result
     
     cellRow = int(cellData[1])
