@@ -20,15 +20,16 @@ def _insert(parms):
     
     
     
-    isGridOk = _error_checking(parms)
-    if (isGridOk == False):
-        result = {'status': 'error 104' }
-        return result
-    
+   
     gridText = parms['grid']
     cellText = parms['cell']
     value = parms.get('value','0')
     integrity = parms['integrity']
+    
+    isGridOk = _error_checking(gridText)
+    if (isGridOk == False):
+        result = {'status': 'error 104' }
+        return result
     
     cellPattern = r"^[rR](\d\d?)[cC](\d\d?)$"
     cellData = re.fullmatch(cellPattern, cellText)
@@ -100,9 +101,8 @@ def _create_grid(board):
         grid.extend(ins)
     return grid
         
-def _error_checking(parms):
+def _error_checking(grid):
     try:
-        grid = parms['grid']
         assert len(grid) == 153
         for m in grid:
             assert abs(m) <= 9
