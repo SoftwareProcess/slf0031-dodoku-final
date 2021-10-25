@@ -12,6 +12,7 @@ Created on October 20,2021
           
 """
 #used for parsing
+
 import re
 def _insert(parms):
     #if (parms['grid'] && parms['integrity'] && parms['status'])) :
@@ -25,11 +26,12 @@ def _insert(parms):
     cellText = parms['cell']
     value = parms.get('value','0')
     integrity = parms['integrity']
-    
-    #isGridOk = _error_checking(gridText)
-    #if (isGridOk == False):
-    #    result = {'status': 'error 104' }
-    #    return result
+    gridText = str.lstrip("[").rstrip("]")
+    grid = list(gridText.split(","))
+    isGridOk = _error_checking(grid)
+    if (isGridOk == False):
+        result = {'status': 'error 104' }
+        return result
     
     cellPattern = r"^[rR](\d\d?)[cC](\d\d?)$"
     cellData = re.fullmatch(cellPattern, cellText)
@@ -37,7 +39,7 @@ def _insert(parms):
     if cellData is None:
         result = {'status': 'error:103'}
         return result
-    if (gridText.len() != 153) :
+    if (grid.len() != 153) :
         result = {'status': 'error: 101'}
         return result
     
@@ -56,7 +58,7 @@ def _insert(parms):
     
 
 def _create_board(grid):
-    #Creates a 15x15 Dodoku board
+    #Creates a 15x15 Dodoku board with the proper spacing 
     board =[]
     loc = 0
     w = range(15)
