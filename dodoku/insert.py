@@ -39,7 +39,7 @@ def _insert(parms):
     if cellData is None:
         result = {'status': 'error:103'}
         return result
-    if (grid.len() != 153) :
+    if (len(grid) != 153) :
         result = {'status': 'error: 101'}
         return result
     
